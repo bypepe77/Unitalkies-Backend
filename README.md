@@ -98,10 +98,9 @@ Event model
     	description: String
     	date: Date
     	location: String
-      Follow: Array
-      IWillAssist: Array
-      
-    	+
+        Follow: Array
+        IWillAssist: Array
+ 
     
     }
     
