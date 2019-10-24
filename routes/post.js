@@ -22,5 +22,16 @@ router.post("/:username/new", async (req, res, next) => {
     next(error);
   }
 });
+router.get("/all", async (req, res, next) => {
+  try {
+    const post = await Post.find()
+    res.json({
+      status: 200,
+      post
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;
