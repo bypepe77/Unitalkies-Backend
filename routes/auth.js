@@ -1,6 +1,11 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
+
 const { checkUsernameAndPasswordNotEmpty } = require("../middlewares");
+
+const User = require('../models/User');
+
+const bcryptSalt = 10;
 
 const router = express.Router();
 
@@ -13,7 +18,7 @@ router.get("/me", (req, res, next) => {
 });
 
 router.post("/signup",checkUsernameAndPasswordNotEmpty, async (req, res, next) => {
-    const { username, password } = res.locals.auth;
+    const { username, password } = req.body;
     try {
       const user = await User.findOne({ username });
       if (user) {
