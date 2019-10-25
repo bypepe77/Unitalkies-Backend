@@ -7,7 +7,11 @@ const PostSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User"
     },
-    text: { type: String }
+    text: { type: String },
+    likes: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Likes'
+    }]
   },
   {
     timestamps: {
