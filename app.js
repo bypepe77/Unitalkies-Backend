@@ -24,6 +24,7 @@ mongoose
 
 const authRouter = require("./routes/auth");
 const postRouter = require("./routes/post");
+const profileRouter = require("./routes/profile");
 
 var app = express();
 
@@ -65,6 +66,7 @@ app.use((req, res, next) => {
 
 app.use("/auth", authRouter);
 app.use("/post", postRouter);
+app.use("/profile", profileRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
