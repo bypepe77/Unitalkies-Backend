@@ -7,6 +7,7 @@ const User = require("../models/User");
 router.post("/:username/new", async (req, res, next) => {
   const { username } = req.params;
   const { text } = req.body;
+  console.log(text);
   try {
     const user = await User.find({ username });
     console.log(user[0].username);
@@ -25,7 +26,7 @@ router.post("/:username/new", async (req, res, next) => {
 
 router.get("/all", async (req, res, next) => {
   try {
-    const post = await Post.find()
+    const post = await Post.find().populate("username")
     res.json(post);
   } catch (error) {
     next(error);
