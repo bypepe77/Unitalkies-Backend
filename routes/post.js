@@ -32,5 +32,15 @@ router.get("/all", async (req, res, next) => {
     next(error);
   }
 });
+router.get("/:postId/:username/like", async (req, res, next) => {
+  const { postId, username } = req.params;
+  try {
+    const user = await User.find({username})
+    const like = await Post.findByIdAndUpdate(postId, { $push: {likes:user[0]._id}}).populate("username")
+    res.json(like);
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;
