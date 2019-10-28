@@ -46,5 +46,16 @@ router.get("/:follower/getFollowing", async (req, res, next) => {
     next(error);
   }
 });
+router.get("/:followId/unfollow", async (req, res, next) => {
+  const { followId } = req.params;
+
+  try {
+    console.log(followId)
+    const unfollow = await Follow.findByIdAndDelete(followId)
+    res.json(unfollow);
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;
