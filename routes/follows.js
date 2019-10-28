@@ -20,4 +20,18 @@ router.get("/:followed/:follower/follow", async (req, res, next) => {
   }
 });
 
+router.get("/:followed/getUsers", async (req, res, next) => {
+  const { followed } = req.params;
+
+  try {
+    const user = await User.find({ username: followed });
+    const userfollowed = await Follow.find({ followed: user[0]._id }).populate(
+      "follower"
+    );
+    res.json(userfollowed);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;

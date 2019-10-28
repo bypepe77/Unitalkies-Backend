@@ -25,7 +25,7 @@ mongoose
 const authRouter = require("./routes/auth");
 const postRouter = require("./routes/post");
 const profileRouter = require("./routes/profile");
-const followRouter = require(".//routes/follows");
+const followRouter = require("./routes/follows");
 
 var app = express();
 
