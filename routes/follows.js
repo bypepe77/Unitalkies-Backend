@@ -50,8 +50,8 @@ router.get("/:followId/unfollow", async (req, res, next) => {
   const { followId } = req.params;
 
   try {
-    console.log(followId)
-    const unfollow = await Follow.findByIdAndDelete(followId)
+    const unfollow = await Follow.findByIdAndDelete(followId);
+    console.log(unfollow);
     res.json(unfollow);
   } catch (error) {
     next(error);
