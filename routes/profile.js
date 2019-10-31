@@ -8,9 +8,9 @@ router.get("/:username", async (req, res, next) => {
     const { username } = req.params;
     console.log(username);
     try {
-      const user = await User.find({username})
-      const posts = await Post.find({username: user[0]._id}).populate("username")
-      res.json({user, posts});
+      const userProfile = await User.find({username})
+      const posts = await Post.find({username: userProfile[0]._id}).populate("username")
+      res.json({userProfile, posts});
     } catch (error) {
       next(error);
     }
