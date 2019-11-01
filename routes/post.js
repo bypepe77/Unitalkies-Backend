@@ -3,6 +3,8 @@ const router = express.Router();
 
 const Post = require("../models/Post");
 const User = require("../models/User");
+const Follow = require("../models/Follow");
+const mongoose = require("mongoose");
 
 router.post("/:username/new", async (req, res, next) => {
   const { username } = req.params;
@@ -25,8 +27,17 @@ router.post("/:username/new", async (req, res, next) => {
 });
 
 router.get("/all", async (req, res, next) => {
+  const username = req.session.currentUser;
   try {
-    const post = await Post.find().populate("username");
+    const followsId = await Follow.find(
+      { follower: username._id },
+      "followed._id"
+    );
+    console.log(followsId);
+    const arr = followsId.map(elem => elem._id);
+    console.log(arr[1]);
+    const post = await Post.find({ username: arr[1] });
+    console.log(post);
     res.json(post);
   } catch (error) {
     next(error);
