@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const { checkUsernameAndPasswordNotEmpty } = require("../middlewares");
 
 const User = require('../models/User');
+const Follow = require("../models/Follow");
 
 const bcryptSalt = 10;
 
@@ -29,6 +30,11 @@ router.post("/signup",checkUsernameAndPasswordNotEmpty, async (req, res, next) =
       const hashedPassword = bcrypt.hashSync(password, salt);
 
       const newUser = await User.create({ username, hashedPassword });
+      console.log(newUser);
+      const follow = await Follow.create({
+        followed: newUser._id,
+        follower: newUser._id
+      });
       req.session.currentUser = newUser;
       return res.json(newUser);
     } catch (error) {

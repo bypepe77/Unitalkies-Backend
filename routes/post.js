@@ -31,12 +31,12 @@ router.get("/all", async (req, res, next) => {
   try {
     const followsId = await Follow.find(
       { follower: username._id },
-      "followed._id"
+      "followed -_id"
     );
     console.log(followsId);
-    const arr = followsId.map(elem => elem._id);
-    console.log(arr[1]);
-    const post = await Post.find({ username: arr[1] });
+    const arr = followsId.map(elem => elem.followed);
+    console.log(arr);
+    const post = await Post.find({ username: arr }).populate("username");
     console.log(post);
     res.json(post);
   } catch (error) {
