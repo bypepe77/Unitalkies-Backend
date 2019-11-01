@@ -36,7 +36,7 @@ router.get("/all", async (req, res, next) => {
     console.log(followsId);
     const arr = followsId.map(elem => elem.followed);
     console.log(arr);
-    const post = await Post.find({ username: arr }).populate("username");
+    const post = await Post.find({ username: arr }).populate("username").sort('-created_at');
     console.log(post);
     res.json(post);
   } catch (error) {
