@@ -11,7 +11,11 @@ const PostSchema = new Schema(
     likes: [{
       type: Schema.Types.ObjectId,
       ref: 'Likes'
-    }]
+    }],
+    formUni: {
+      type: Schema.Types.ObjectId,
+      ref: "User"
+    }
   },
   {
     timestamps: {

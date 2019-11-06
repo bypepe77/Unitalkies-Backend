@@ -8,14 +8,14 @@ const mongoose = require("mongoose");
 
 router.post("/:username/new", async (req, res, next) => {
   const { username } = req.params;
-  const { text } = req.body;
-  console.log(text);
+  const { text, university } = req.body;
   try {
     const user = await User.find({ username });
     console.log(user[0].username);
     const post = await Post.create({
       username: user[0]._id,
-      text
+      text,
+      formUni: university
     });
     res.json({
       status: 200,
