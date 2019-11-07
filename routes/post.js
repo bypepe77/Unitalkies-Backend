@@ -28,6 +28,7 @@ router.post("/:username/new", async (req, res, next) => {
 
 router.get("/all", async (req, res, next) => {
   const username = req.session.currentUser;
+  console.log(username);
   try {
     const followsId = await Follow.find(
       { follower: username._id },
@@ -35,9 +36,12 @@ router.get("/all", async (req, res, next) => {
     );
     console.log(followsId);
     const arr = followsId.map(elem => elem.followed);
-    console.log(arr);
-    const post = await Post.find({$or: [{username: arr}, {formUni: arr}]}).populate("username").populate("formUni").sort('-created_at');
-    console.log(post);
+    const post = await Post.find({
+      $or: [{ username: arr }, { formUni: arr }, { username: username._id }]
+    })
+      .populate("username")
+      .populate("formUni")
+      .sort("-created_at");
     res.json(post);
   } catch (error) {
     next(error);
