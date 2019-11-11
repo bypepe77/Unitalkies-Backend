@@ -5,7 +5,8 @@ const NotificationSchema = new Schema(
   {
     notificationFrom: { type: Schema.Types.ObjectId, ref: "User" },
     notificationTo: { type: Schema.Types.ObjectId, ref: "User" },
-    seen: 0,
+    text: {type: String},
+    seen: {type: Number, default: 0},
   },
   {
     timestamps: {
