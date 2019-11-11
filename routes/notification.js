@@ -12,7 +12,7 @@ router.get("/all", async (req, res, next) => {
       const notificationCount = await Notification.find({
         notificationTo: username,
         seen: 0
-      });
+      }).populate("notificationTo").populate("notificationFrom").sort("-created_at");
       console.log("noti", notificationCount);
       res.json(notificationCount);
   } catch (error) {
