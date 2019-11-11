@@ -69,7 +69,7 @@ app.use("/auth", authRouter);
 app.use("/post", postRouter);
 app.use("/profile", profileRouter);
 app.use("/follow", followRouter);
-app.use("/notification", notificationRouter);
+app.use("/notifications", notificationRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

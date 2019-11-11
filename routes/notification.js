@@ -11,10 +11,10 @@ router.get("/all", async (req, res, next) => {
   try {
       const notificationCount = await Notification.find({
         notificationTo: username,
-        visited: 0,
+        seen: 0
       });
+      console.log("noti", notificationCount);
       res.json(notificationCount);
-      
   } catch (error) {
       console.log(error);
   }
