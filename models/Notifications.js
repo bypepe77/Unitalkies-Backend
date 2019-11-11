@@ -4,7 +4,8 @@ const { Schema } = mongoose;
 const NotificationSchema = new Schema(
   {
     notificationFrom: { type: Schema.Types.ObjectId, ref: "User" },
-    notificationTo: { type: Schema.Types.ObjectId, ref: "User" }
+    notificationTo: { type: Schema.Types.ObjectId, ref: "User" },
+    seen: 0,
   },
   {
     timestamps: {
