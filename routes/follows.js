@@ -20,7 +20,6 @@ router.get("/:followed/:follower/follow", async (req, res, next) => {
       notificationTo: userfollowed[0]._id,
       text: "ha empezado a seguirte",
     })
-
     res.json(follow);
   } catch (error) {
     next(error);

@@ -4,6 +4,7 @@ const router = express.Router();
 const Post = require("../models/Post");
 const User = require("../models/User");
 const Follow = require("../models/Follow");
+const Notification = require("../models/Notifications");
 const mongoose = require("mongoose");
 
 router.post("/:username/new", async (req, res, next) => {
@@ -54,6 +55,11 @@ router.get("/:postId/:username/like", async (req, res, next) => {
       $push: { likes: user[0]._id }
     }).populate("username");
     console.log(like);
+    const CreateNotification = await Notification.create({
+      notificationFrom: user[0]._id,
+      notificationTo: like.username._id,
+      text: "le ha gustado una de tus publicaciones",
+    });
     res.json(like);
   } catch (error) {
     next(error);
@@ -66,7 +72,6 @@ router.get("/:postId/:username/unlike", async (req, res, next) => {
     const like = await Post.findByIdAndUpdate(postId, {
       $pull: { likes: user[0]._id }
     }).populate("username");
-    console.log(like);
     res.json(like);
   } catch (error) {
     next(error);
