@@ -34,7 +34,6 @@ router.get("/all", async (req, res, next) => {
       { follower: username._id },
       "followed -_id"
     );
-    console.log(followsId);
     const arr = followsId.map(elem => elem.followed);
     const post = await Post.find({
       $or: [{ username: arr }, { formUni: arr }, { username: username._id }]
