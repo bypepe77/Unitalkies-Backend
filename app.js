@@ -26,7 +26,7 @@ const authRouter = require("./routes/auth");
 const postRouter = require("./routes/post");
 const profileRouter = require("./routes/profile");
 const followRouter = require("./routes/follows");
-
+const notificationRouter = require("./routes/notification");
 var app = express();
 
 // view engine setup
@@ -69,6 +69,7 @@ app.use("/auth", authRouter);
 app.use("/post", postRouter);
 app.use("/profile", profileRouter);
 app.use("/follow", followRouter);
+app.use("/notification", notificationRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
