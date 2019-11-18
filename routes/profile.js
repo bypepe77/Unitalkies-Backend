@@ -18,5 +18,16 @@ router.get("/:username", async (req, res, next) => {
     next(error);
   }
 });
+router.put("/edit/:username", async(req,res,next) =>{
+  const { username } = req.params;
+  const { university, description } = req.body;
+  
+  try {
+    const userUpdated = await User.update({username}, {university, description })
+    res.json(userUpdated);
+  } catch (error) {
+    console.log(error);
+  }
+})
 
 module.exports = router;
