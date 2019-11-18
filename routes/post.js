@@ -51,7 +51,6 @@ router.get("/all", async (req, res, next) => {
     })
       .populate("username")
       .populate("formUni")
-      .populate("commented_to")
       .sort("-created_at");
     res.json(post);
   } catch (error) {
