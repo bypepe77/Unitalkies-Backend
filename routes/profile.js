@@ -9,10 +9,8 @@ router.get("/:username", async (req, res, next) => {
   console.log(username);
   try {
     const userProfile = await User.find({ username });
-    const posts = await Post.find({ username: userProfile[0]._id })
-      .populate("username")
-      .populate("formUni")
-      .sort("-created_at");
+    const posts = await Post.find({
+      $or: [{ username: userProfile[0]._id }, { formUni:userProfile[0]._id  }]}).populate("username").populate("formUni").sort("-created_at");
     res.json({ userProfile, posts });
   } catch (error) {
     next(error);

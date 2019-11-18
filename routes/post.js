@@ -30,7 +30,6 @@ router.get("/detail/:postId", async (req, res, next) => {
   const { postId } = req.params;
   try {
     const postDetail = await Post.findById(postId).populate("username");
-    console.log("POST-DETAIL", postDetail);
     res.json(postDetail);
   } catch (error) {
     console.log(error);
