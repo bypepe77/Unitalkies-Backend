@@ -9,14 +9,15 @@ const mongoose = require("mongoose");
 
 router.post("/:username/new", async (req, res, next) => {
   const { username } = req.params;
-  const { text, university } = req.body;
+  const { text, university, post_id } = req.body;
   try {
     const user = await User.find({ username });
     console.log(user[0].username);
     const post = await Post.create({
       username: user[0]._id,
       text,
-      formUni: university
+      formUni: university,
+      commented_to: post_id
     });
     res.json({
       status: 200,
@@ -30,7 +31,8 @@ router.get("/detail/:postId", async (req, res, next) => {
   const { postId } = req.params;
   try {
     const postDetail = await Post.findById(postId).populate("username");
-    res.json(postDetail);
+    const postComments = await Post.find({commented_to: postId }).populate("username").sort("-created_at");;
+    res.json({postDetail, postComments});
   } catch (error) {
     console.log(error);
   }
@@ -49,6 +51,7 @@ router.get("/all", async (req, res, next) => {
     })
       .populate("username")
       .populate("formUni")
+      .populate("commented_to")
       .sort("-created_at");
     res.json(post);
   } catch (error) {
