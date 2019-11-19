@@ -9,14 +9,15 @@ const mongoose = require("mongoose");
 
 router.post("/:username/new", async (req, res, next) => {
   const { username } = req.params;
-  const { text, university } = req.body;
+  const { text, university, post_id } = req.body;
   try {
     const user = await User.find({ username });
     console.log(user[0].username);
     const post = await Post.create({
       username: user[0]._id,
       text,
-      formUni: university
+      formUni: university,
+      commented_to: post_id
     });
     res.json({
       status: 200,
@@ -26,7 +27,16 @@ router.post("/:username/new", async (req, res, next) => {
     next(error);
   }
 });
-
+router.get("/detail/:postId", async (req, res, next) => {
+  const { postId } = req.params;
+  try {
+    const postDetail = await Post.findById(postId).populate("username");
+    const postComments = await Post.find({commented_to: postId }).populate("username").sort("-created_at");;
+    res.json({postDetail, postComments});
+  } catch (error) {
+    console.log(error);
+  }
+});
 router.get("/all", async (req, res, next) => {
   const username = req.session.currentUser;
   console.log(username);
@@ -58,7 +68,7 @@ router.get("/:postId/:username/like", async (req, res, next) => {
     const CreateNotification = await Notification.create({
       notificationFrom: user[0]._id,
       notificationTo: like.username._id,
-      text: "le ha gustado una de tus publicaciones",
+      text: "le ha gustado una de tus publicaciones"
     });
     res.json(like);
   } catch (error) {

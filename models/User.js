@@ -4,10 +4,13 @@ const { Schema } = mongoose;
 const UserSchema = new Schema(
   {
     username: { type: String },
-    hashedPassword: { type: String }
+    hashedPassword: { type: String },
+    university: {type: String},
+    description: {type: String},
   },
   {
-    university_name: { type: String }
+    university_name: { type: String },
+    isUni: {type: Number,  default: 0 }
   },
   {
     timestamps: {

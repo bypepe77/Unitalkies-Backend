@@ -15,7 +15,12 @@ const PostSchema = new Schema(
     formUni: {
       type: Schema.Types.ObjectId,
       ref: "User"
+    },
+    commented_to: {
+      type: Schema.Types.ObjectId,
+      ref: "Post"
     }
+
   },
   {
     timestamps: {
