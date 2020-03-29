@@ -7,6 +7,7 @@ const UserSchema = new Schema(
     hashedPassword: { type: String },
     university: {type: String},
     description: {type: String},
+    verified: {type: Number, default: 0},
   },
   {
     university_name: { type: String },

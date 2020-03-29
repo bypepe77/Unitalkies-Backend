@@ -30,7 +30,7 @@ var app = express();
 
 app.set("trust proxy", true);
 app.use(cors);
-app.options("*", cors);
+app.options('*', cors);
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
