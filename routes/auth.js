@@ -1,5 +1,6 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
+const cors = require("cors")
 
 const { checkUsernameAndPasswordNotEmpty } = require("../middlewares");
 
@@ -42,7 +43,7 @@ router.post(
 );
 router.post(
   "/login",
-  checkUsernameAndPasswordNotEmpty,
+  checkUsernameAndPasswordNotEmpty, cors(),
   async (req, res, next) => {
     const { username, password } = res.locals.auth;
     try {
