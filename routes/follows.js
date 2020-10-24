@@ -4,7 +4,6 @@ var router = express.Router();
 const Post = require("../models/Post");
 const User = require("../models/User");
 const Follow = require("../models/Follow");
-const Notification = require("../models/Notifications");
 
 router.get("/:followed/:follower/follow", async (req, res, next) => {
   const { followed, follower } = req.params;
@@ -15,11 +14,6 @@ router.get("/:followed/:follower/follow", async (req, res, next) => {
       followed: userfollowed[0]._id,
       follower: userWhoFollow[0]._id
     });
-    const CreateNotification = await Notification.create({
-      notificationFrom: userWhoFollow[0]._id,
-      notificationTo: userfollowed[0]._id,
-      text: "ha empezado a seguirte",
-    })
     res.json(follow);
   } catch (error) {
     next(error);

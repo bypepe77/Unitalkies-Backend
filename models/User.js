@@ -11,7 +11,8 @@ const UserSchema = new Schema(
   },
   {
     university_name: { type: String },
-    isUni: {type: Number,  default: 0 }
+    isUni: {type: Number,  default: 0 },
+    UniveristyDescription: {type: String},
   },
   {
     timestamps: {
