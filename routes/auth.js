@@ -3,7 +3,6 @@ const bcrypt = require("bcryptjs");
 const cors = require("cors")
 
 const { checkUsernameAndPasswordNotEmpty } = require("../middlewares");
-
 const User = require("../models/User");
 const Follow = require("../models/Follow");
 
@@ -43,7 +42,7 @@ router.post(
 );
 router.post(
   "/login",
-  checkUsernameAndPasswordNotEmpty, cors(),
+  checkUsernameAndPasswordNotEmpty,
   async (req, res, next) => {
     const { username, password } = res.locals.auth;
     try {
